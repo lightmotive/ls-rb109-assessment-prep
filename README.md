@@ -1,1 +1,3 @@
-# ls-rb109-assessment-prep
+# RB109 Assessment Prep
+
+"Out loud" coding practice for interview preparation.
