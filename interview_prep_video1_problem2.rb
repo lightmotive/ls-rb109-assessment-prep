@@ -22,7 +22,7 @@
 #
 # - duplicate_chars = []
 # - Find the longest_string.
-# - Iterate through each char in longest_string
+# - Iterate through each unique char in longest_string
 #   - Count the char occurrences across each string
 #   - If all counts are greater than 0:
 #     - Take the smallest_count from each string.
