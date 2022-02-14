@@ -14,6 +14,22 @@
 #   character repeats multiple times across all strings, include those
 #   globally duplicated repetitions.
 
+# * Data Structure *
+# Store the globally duplicated characters in a new array.
+#
+# * Algorithm *
+# Given an array called `strings`:
+#
+# - duplicate_chars = []
+# - Find the longest_string.
+# - Iterate through each char in longest_string
+#   - Count the char occurrences across each string
+#   - If all counts are greater than 0:
+#     - Take the smallest_count from each string.
+#     - Add the character to the array [smallest_count] times to
+#       duplicate_chars.
+# - Return duplicate_chars
+
 # Examples:
 p common_chars(%w[bella label roller]) == %w[e l l]
 p common_chars(%w[cool lock cook]) == %w[c o]
