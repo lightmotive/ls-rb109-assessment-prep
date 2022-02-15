@@ -49,24 +49,26 @@ def max_num(integer)
   integer.to_s.chars.sort.reverse.join.to_i
 end
 
-# rubocop:disable Metrics/MethodLength
-def next_bigger_num_string_each(integer)
+def sort_num_string_reverse_each!(digits_string, start_index)
+  start_index.downto(1) do |index_right|
+    index_left = index_right - 1
+    digits_string[index_right], digits_string[index_left] = digits_string[index_left], digits_string[index_right]
+
+    yield(digits_string)
+  end
+end
+
+def next_bigger_num_string_each(integer, &block)
   digits_string = integer.to_s
   largest_number = max_num(integer)
   start_index = digits_string.length - 1
 
   while digits_string.to_i < largest_number
-    start_index.downto(1) do |index_right|
-      index_left = index_right - 1
-      digits_string[index_right], digits_string[index_left] = digits_string[index_left], digits_string[index_right]
-
-      yield(digits_string)
-    end
+    sort_num_string_reverse_each!(digits_string, start_index, &block)
 
     start_index -= 1
   end
 end
-# rubocop:enable Metrics/MethodLength
 
 def next_bigger_num(integer)
   largest_number = max_num(integer)
