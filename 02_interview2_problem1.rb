@@ -79,3 +79,23 @@ p next_bigger_num(2017) == 2071
 p next_bigger_num(111) == -1
 p next_bigger_num(531) == -1
 p next_bigger_num(123_456_789) == 123_456_798
+
+# Additional tests (verified with `next_bigger_num_generator` method below):
+p next_bigger_num(123_666_888) == 123_668_688
+p next_bigger_num(123_654_999) == 123_659_499
+p next_bigger_num(123_999_999) == 129_399_999
+
+# For test number generation only -- this is not an efficient solution!
+def next_bigger_num_generator(integer)
+  integer_chars = integer.to_s.chars
+  permutations = integer_chars.permutation.to_a.uniq.sort
+  p "Size: #{permutations.size}"
+
+  permutations.reject! { |permutation| [-1, 0].include?(permutation <=> integer_chars) }
+
+  return -1 if permutations.empty?
+
+  permutations.first.join.to_i
+end
+
+next_bigger_num_generator(123_999_999)
