@@ -45,26 +45,36 @@
 #
 # return -1
 
-def next_bigger_num(integer)
+def max_num(integer)
+  integer.to_s.chars.sort.reverse.join.to_i
+end
+
+# rubocop:disable Metrics/MethodLength
+def next_bigger_num_string_each(integer)
   digits_string = integer.to_s
-  largest_number_string = digits_string.chars.sort.reverse.join
-  largest_number = largest_number_string.to_i
-
-  return -1 if digits_string == largest_number_string
-
+  largest_number = max_num(integer)
   start_index = digits_string.length - 1
+
   while digits_string.to_i < largest_number
     start_index.downto(1) do |index_right|
       index_left = index_right - 1
-      next unless digits_string[index_right] > digits_string[index_left]
+      digits_string[index_right], digits_string[index_left] = digits_string[index_left], digits_string[index_right]
 
-      digits_string[index_right], digits_string[index_left] =
-        digits_string[index_left], digits_string[index_right]
-
-      return digits_string.to_i
+      yield(digits_string)
     end
 
     start_index -= 1
+  end
+end
+# rubocop:enable Metrics/MethodLength
+
+def next_bigger_num(integer)
+  largest_number = max_num(integer)
+  return -1 if integer == largest_number
+
+  next_bigger_num_string_each(integer) do |digits_string|
+    next_num = digits_string.to_i
+    return next_num if next_num > integer
   end
 
   -1
@@ -97,5 +107,3 @@ def next_bigger_num_generator(integer)
 
   permutations.first.join.to_i
 end
-
-next_bigger_num_generator(123_999_999)
