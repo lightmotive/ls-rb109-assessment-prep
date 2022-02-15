@@ -48,7 +48,9 @@ def common_chars(strings)
 end
 
 # Examples:
-p common_chars(%w[bella label roller]) == %w[e l l]
+
+# Question to interviewer: does the output need to be in a specific order?
+p common_chars(%w[bella label roller]).sort == %w[e l l].sort
 p common_chars(%w[cool lock cook]) == %w[c o]
 p common_chars(%w[hello goodbye booya random]) == %w[o]
 p common_chars(%w[aabbaaaa ccdddddd eeffee ggrrrrr yyyzzz]) == []
