@@ -29,11 +29,12 @@
 #
 # Given an `integer`:
 #
-# digits = integer.to_s.chars
-# start_index = digits.length - 1
-# largest_number_string = digits.sort.reverse
+# digits_string = integer.to_s.chars
+# start_index = digits_string.length - 1
+# largest_number_string = digits_string.sort.reverse
 # largest_number = largest_number_string.to_i
-# While digits.to_i <= largest_number:
+# return -1 if digits_string.to_i == largest_number_string
+# While digits_string.to_i < largest_number:
 #   Loop from start_index to 1 with index_right:
 #     index_left = index_right - 1
 #     Compare element at index_right to element at index_left as strings.
