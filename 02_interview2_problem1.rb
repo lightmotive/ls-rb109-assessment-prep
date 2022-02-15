@@ -95,15 +95,17 @@ p next_bigger_num(123_666_888) == 123_668_688
 p next_bigger_num(123_654_999) == 123_659_499
 p next_bigger_num(123_999_999) == 129_399_999
 
+require 'objspace'
+
 # For test number generation only -- this is not an efficient solution!
 def next_bigger_num_generator(integer)
   integer_chars = integer.to_s.chars
-  permutations = integer_chars.permutation.to_a.uniq.sort
-  p "Size: #{permutations.size}"
+  permutations_unique = integer_chars.permutation.to_a.uniq.sort
+  p "Size: #{permutations_unique.size}"
 
-  permutations.reject! { |permutation| [-1, 0].include?(permutation <=> integer_chars) }
+  permutations_unique.reject! { |permutation| [-1, 0].include?(permutation <=> integer_chars) }
 
-  return -1 if permutations.empty?
+  return -1 if permutations_unique.empty?
 
-  permutations.first.join.to_i
+  permutations_unique.first.join.to_i
 end
