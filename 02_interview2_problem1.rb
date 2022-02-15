@@ -52,7 +52,8 @@ end
 def sort_num_string_reverse_each!(digits_string, start_index)
   start_index.downto(1) do |index_right|
     index_left = index_right - 1
-    digits_string[index_right], digits_string[index_left] = digits_string[index_left], digits_string[index_right]
+    digits_string[index_right], digits_string[index_left] =
+      digits_string[index_left], digits_string[index_right]
 
     yield(digits_string)
   end
@@ -97,15 +98,15 @@ p next_bigger_num(123_666_888) == 123_668_688
 p next_bigger_num(123_654_999) == 123_659_499
 p next_bigger_num(123_999_999) == 129_399_999
 
-require 'objspace'
-
 # For test number generation only -- this is not an efficient solution!
 def next_bigger_num_generator(integer)
   integer_chars = integer.to_s.chars
   permutations_unique = integer_chars.permutation.to_a.uniq.sort
   p "Size: #{permutations_unique.size}"
 
-  permutations_unique.reject! { |permutation| [-1, 0].include?(permutation <=> integer_chars) }
+  permutations_unique.reject! do |permutation|
+    [-1, 0].include?(permutation <=> integer_chars)
+  end
 
   return -1 if permutations_unique.empty?
 
