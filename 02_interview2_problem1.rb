@@ -46,23 +46,28 @@
 # return -1
 
 def next_bigger_num(integer)
-  digits_string = integer.to_s.chars
-  largest_number_string = digits_string.sort.reverse.join
+  digits_string = integer.to_s
+  largest_number_string = digits_string.chars.sort.reverse.join
   largest_number = largest_number_string.to_i
 
   return -1 if digits_string == largest_number_string
 
   start_index = digits_string.length - 1
-  # While digits_string.to_i < largest_number:
-  #   Loop from start_index to 1 with index_right:
-  #     index_left = index_right - 1
-  #     Compare element at index_right to element at index_left as strings.
-  #       If right is greater than left, swap and return the string converted
-  #         to an integer. Eventually, the string will be sorted from largest to
-  #         smallest.
-  #   start_index -= 1
-  #
-  # return -1
+  while digits_string.to_i < largest_number
+    start_index.downto(1) do |index_right|
+      index_left = index_right - 1
+      next unless digits_string[index_right] > digits_string[index_left]
+
+      digits_string[index_right], digits_string[index_left] =
+        digits_string[index_left], digits_string[index_right]
+
+      return digits_string.to_i
+    end
+
+    start_index -= 1
+  end
+
+  -1
 end
 
 # Examples:
