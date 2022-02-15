@@ -30,6 +30,23 @@
 #       duplicate_chars.
 # - Return duplicate_chars
 
+def common_chars(strings)
+  duplicate_chars = []
+
+  longest_string = strings.max_by(&:length)
+
+  longest_string.chars.uniq.each do |char|
+    char_counts = strings.map { |string| string.count(char) }
+    char_count_min = char_counts.min
+
+    next if char_count_min.zero?
+
+    duplicate_chars.concat([char] * char_count_min)
+  end
+
+  duplicate_chars
+end
+
 # Examples:
 p common_chars(%w[bella label roller]) == %w[e l l]
 p common_chars(%w[cool lock cook]) == %w[c o]
