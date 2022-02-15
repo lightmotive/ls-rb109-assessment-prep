@@ -15,15 +15,15 @@ require_relative '../ruby-common/benchmark_report'
 
 TESTS = [
   { input: 9, expected_output: -1 },
-  {  input: 12, expected_output: 21 },
-  {  input: 513,     expected_output: 531 },
-  {  input: 2017, expected_output: 2071 },
-  {  input: 111, expected_output: -1 },
-  {  input: 531, expected_output: -1 },
-  {  input: 123_456_789, expected_output: 123_456_798 },
-  {  input: 123_666_888, expected_output: 123_668_688 },
-  {  input: 123_654_999, expected_output: 123_659_499 },
-  {  input: 123_999_999, expected_output: 129_399_999 }
+  { input: 12, expected_output: 21 },
+  { input: 513, expected_output: 531 },
+  { input: 2017, expected_output: 2071 },
+  { input: 111, expected_output: -1 },
+  { input: 531, expected_output: -1 },
+  { input: 123_456_789, expected_output: 123_456_798 },
+  { input: 123_666_888, expected_output: 123_668_688 },
+  { input: 123_654_999, expected_output: 123_659_499 },
+  { input: 123_999_999, expected_output: 129_399_999 }
 ].freeze
 
 run_tests('next_bigger_num',
