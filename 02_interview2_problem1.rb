@@ -21,6 +21,29 @@
 # - Store the reorganized digits in a string that one can convert to an integer
 #   for comparison purposes.
 
+# Algorithm:
+# * We'll consider performance optimizations later, if necessary. *
+#
+# Overview: from right-to-left, find the first digit that's larger than the
+# digit to its left. Compare 2 digits at a time.
+#
+# Given an `integer`:
+#
+# digits = integer.to_s.chars
+# start_index = digits.length - 1
+# largest_number_string = digits.sort.reverse
+# largest_number = largest_number_string.to_i
+# While digits.to_i <= largest_number:
+#   Loop from start_index to 1 with index_right:
+#     index_left = index_right - 1
+#     Compare element at index_right to element at index_left as strings.
+#       If right is greater than left, swap and return the string converted
+#         to an integer. Eventually, the string will be sorted from largest to
+#         smallest.
+#   start_index -= 1
+#
+# return -1
+
 # Examples:
 
 p next_bigger_num(9) == -1
