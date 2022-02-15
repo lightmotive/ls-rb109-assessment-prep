@@ -9,6 +9,20 @@
 # 111 ==> -1
 # 531 ==> -1
 
+# Input: Positive integer
+# Output: Positive integer or -1
+# Rules:
+# - Return -1 if no bigger number can be formed with the provided digits.
+# Mental model: Rearrange the digits to form a larger number if possible;
+#   otherwise, return -1.
+
+# Data structure:
+# - Store the digits in an array to simplify access and reorganization.
+# - Store the reorganized digits in a string that one can convert to an integer
+#   for comparison purposes.
+
+# Examples:
+
 p next_bigger_num(9) == -1
 p next_bigger_num(12) == 21
 p next_bigger_num(513) == 531
