@@ -49,18 +49,23 @@ def integer_digits_max(integer)
   integer.to_s.chars.sort.reverse.join.to_i
 end
 
-def sort_num_string_reverse_each!(int_str, index_start)
+def string_sort_reverse_swap!(str, index_right, index_left)
+  str[index_right], str[index_left] = str[index_left], str[index_right]
+end
+
+# Iterate through each swap from a specified starting point
+def sort_reverse_each_uniq!(collection, index_start)
   index_start.downto(1) do |index_right|
     index_left = index_right - 1
-    next unless int_str[index_right] > int_str[index_left]
+    next unless collection[index_right] > collection[index_left]
 
-    int_str[index_right], int_str[index_left] =
-      int_str[index_left], int_str[index_right]
+    string_sort_reverse_swap!(collection, index_right, index_left)
     break
   end
 end
 
-def next_bigger_num_string_each(integer)
+# This generates successively bigger numbers, but not every bigger number.
+def bigger_num_string_each(integer)
   int_str = integer.to_s
   int_max = integer_digits_max(integer)
   digits_str_last_unique = nil
@@ -69,7 +74,7 @@ def next_bigger_num_string_each(integer)
     index_start = int_str.length - 1
 
     while index_start.positive? && int_str.to_i < int_max
-      sort_num_string_reverse_each!(int_str, index_start)
+      sort_reverse_each_uniq!(int_str, index_start)
 
       if int_str != digits_str_last_unique
         digits_str_last_unique = int_str.dup
@@ -81,13 +86,11 @@ def next_bigger_num_string_each(integer)
   end
 end
 
-# next_bigger_num_string_each(879_999_999) { |num_string| puts num_string }
-
 def next_bigger_num(integer)
   int_max = integer_digits_max(integer)
   return -1 if integer == int_max
 
-  next_bigger_num_string_each(integer) do |int_next_str|
+  bigger_num_string_each(integer) do |int_next_str|
     int_next = int_next_str.to_i
     return int_next if int_next > integer
   end
@@ -111,11 +114,10 @@ p next_bigger_num(123_654_999) == 123_659_499
 p next_bigger_num(123_999_999) == 129_399_999
 p next_bigger_num(879_999_999) == 897_999_999
 
-# For test number generation only -- this is not an efficient solution!
+# ** For test number generation only -- this is not an efficient solution! **
 def next_bigger_num_generator(integer)
   integer_chars = integer.to_s.chars
   permutations_unique = integer_chars.permutation.to_a.uniq.sort
-  p "Size: #{permutations_unique.size}"
 
   permutations_unique.reject! do |permutation|
     [-1, 0].include?(permutation <=> integer_chars)
@@ -123,5 +125,35 @@ def next_bigger_num_generator(integer)
 
   return -1 if permutations_unique.empty?
 
-  permutations_unique.first.join.to_i
+  permutations_unique
 end
+
+test_number = 879_999_999
+
+p "Next bigger number for #{test_number}: #{next_bigger_num_generator(test_number).first.join.to_i}"
+
+def compare_permutations_to_solution_enumeration(test_number)
+  permutations_unique = next_bigger_num_generator(test_number)
+  p permutations_unique.first.join.to_i
+  p "Size: #{permutations_unique.size}"
+
+  bigger_numbers_sorted = permutations_unique.map do |permutation|
+    permutation.join.to_i
+  end
+
+  solution_numbers_to_sorted_permutation_index = []
+  bigger_num_string_each(test_number) do |num_string|
+    solution_numbers_to_sorted_permutation_index.push(
+      bigger_numbers_sorted.index(num_string.to_i)
+    )
+  end
+
+  solution_numbers_to_sorted_permutation_index == solution_numbers_to_sorted_permutation_index.dup.sort
+end
+
+def print_test_number_generator_results(test_number)
+  p "Does solution enumeration output bigger numbers in the same order as sorted permutations for the number #{test_number}? #{
+    compare_permutations_to_solution_enumeration(test_number) ? 'Yes' : 'No' }"
+end
+
+print_test_number_generator_results(test_number)
