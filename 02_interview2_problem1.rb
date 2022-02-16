@@ -29,63 +29,67 @@
 #
 # Given an `integer`:
 #
-# digits_string = integer.to_s.chars
-# largest_number_string = digits_string.sort.reverse.join
+# int_str = integer.to_s.chars
+# largest_number_string = int_str.sort.reverse.join
 # largest_number = largest_number_string.to_i
-# return -1 if digits_string == largest_number_string
-# start_index = digits_string.length - 1
-# While digits_string.to_i < largest_number:
-#   Loop from start_index to 1 with index_right:
+# return -1 if int_str == largest_number_string
+# index_start = int_str.length - 1
+# While int_str.to_i < largest_number:
+#   Loop from index_start to 1 with index_right:
 #     index_left = index_right - 1
 #     Compare element at index_right to element at index_left as strings.
 #       If right is greater than left, swap and return the string converted
 #         to an integer. Eventually, the string will be sorted from largest to
 #         smallest.
-#   start_index -= 1
+#   index_start -= 1
 #
 # return -1
 
-def max_num(integer)
+def integer_digits_max(integer)
   integer.to_s.chars.sort.reverse.join.to_i
 end
 
-def sort_num_string_reverse_each!(digits_string, start_index)
-  start_index.downto(1) do |index_right|
+def sort_num_string_reverse_each!(int_str, index_start)
+  index_start.downto(1) do |index_right|
     index_left = index_right - 1
-    next unless digits_string[index_right] > digits_string[index_left]
+    next unless int_str[index_right] > int_str[index_left]
 
-    digits_string[index_right], digits_string[index_left] =
-      digits_string[index_left], digits_string[index_right]
+    int_str[index_right], int_str[index_left] =
+      int_str[index_left], int_str[index_right]
     break
   end
 end
 
 def next_bigger_num_string_each(integer)
-  digits_string = integer.to_s
-  largest_number = max_num(integer)
+  int_str = integer.to_s
+  int_max = integer_digits_max(integer)
+  digits_str_last_unique = nil
 
-  while digits_string.to_i < largest_number
-    start_index = digits_string.length - 1
+  while int_str.to_i < int_max
+    index_start = int_str.length - 1
 
-    while start_index.positive? && digits_string.to_i < largest_number
-      sort_num_string_reverse_each!(digits_string, start_index)
+    while index_start.positive? && int_str.to_i < int_max
+      sort_num_string_reverse_each!(int_str, index_start)
 
-      yield(digits_string)
+      if int_str != digits_str_last_unique
+        digits_str_last_unique = int_str.dup
+        yield(int_str)
+      end
 
-      start_index -= 1
+      index_start -= 1
     end
   end
 end
 
-next_bigger_num_string_each(879_999_999) { |num_string| puts num_string }
+# next_bigger_num_string_each(879_999_999) { |num_string| puts num_string }
 
 def next_bigger_num(integer)
-  largest_number = max_num(integer)
-  return -1 if integer == largest_number
+  int_max = integer_digits_max(integer)
+  return -1 if integer == int_max
 
-  next_bigger_num_string_each(integer) do |digits_string|
-    next_num = digits_string.to_i
-    return next_num if next_num > integer
+  next_bigger_num_string_each(integer) do |int_next_str|
+    int_next = int_next_str.to_i
+    return int_next if int_next > integer
   end
 
   -1
