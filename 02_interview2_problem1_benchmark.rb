@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 require_relative '02_interview2_problem1'
 
 # * Compare provided solution with interview solution *
 
 def next_bigger_num_interview(input)
-  max = max_num(input)
-  (input + 1..max).to_a.each do |num|
-    return num if max == max_num(num)
+  max = integer_digits_max(input)
+  (input + 1..max).each do |num|
+    return num if max == integer_digits_max(num)
   end
   -1
 end
@@ -32,7 +34,7 @@ run_tests('next_bigger_num_interview',
           TESTS, ->(input) { next_bigger_num_interview(input) })
 
 benchmark_report(
-  2, 100, TESTS,
+  1, 1, TESTS,
   [
     { label: 'next_bigger_num',
       method: ->(input) { next_bigger_num(input) } },
