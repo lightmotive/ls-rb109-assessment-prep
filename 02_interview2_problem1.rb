@@ -108,57 +108,80 @@ p next_bigger_num(111) == -1
 p next_bigger_num(531) == -1
 p next_bigger_num(123_456_789) == 123_456_798
 
-# Additional tests (verified with `next_bigger_num_generator` method below):
+# Additional tests (verified with `bigger_number_permutations_unique` method below):
 p next_bigger_num(123_666_888) == 123_668_688
 p next_bigger_num(123_654_999) == 123_659_499
 p next_bigger_num(123_999_999) == 129_399_999
 p next_bigger_num(879_999_999) == 897_999_999
 
-# ** For test number generation only -- this is not an efficient solution! **
-def next_bigger_num_generator(integer)
-  integer_chars = integer.to_s.chars
-  permutations_unique = integer_chars.permutation.to_a.uniq.sort
+# ***
+#
+# Below: test number generation only -- this is not the most efficient solution.
+#
+# ***
+def integer_chars(integer)
+  integer.to_s.chars
+end
 
+def integer_chars_permutations(integer)
+  integer_chars(integer).permutation.to_a
+end
+
+def bigger_number_permutations_unique(integer)
+  permutations = integer_chars_permutations(integer)
+  permutations_unique = permutations.uniq.sort
+
+  integer_chars = integer_chars(integer)
   permutations_unique.reject! do |permutation|
     [-1, 0].include?(permutation <=> integer_chars)
   end
 
-  return -1 if permutations_unique.empty?
-
   permutations_unique
 end
 
-test_number = 879_999_999
+# The solution enumeration sequence relative to sorted permutations.
+def solution_to_permutation_index_map(
+  test_number, numbers_sorted
+)
+  indices = []
 
-p "Next bigger number for #{test_number}: #{
-  next_bigger_num_generator(test_number).first.join.to_i
-}"
+  bigger_num_string_each(test_number) do |num_string|
+    indices.push(numbers_sorted.index(num_string.to_i))
+  end
 
-def permutations_sequence_matches_solution_enumeration_sequence(test_number)
-  permutations_unique = next_bigger_num_generator(test_number)
-  p permutations_unique.first.join.to_i
-  p "Size: #{permutations_unique.size}"
+  indices
+end
 
-  bigger_numbers_sorted = permutations_unique.map do |permutation|
+def solution_sequence_matches_permutation_sequence(
+  test_number, permutations_unique
+)
+  numbers_sorted = permutations_unique.map do |permutation|
     permutation.join.to_i
   end
 
-  solution_numbers_to_sorted_permutation_index = []
-  bigger_num_string_each(test_number) do |num_string|
-    solution_numbers_to_sorted_permutation_index.push(
-      bigger_numbers_sorted.index(num_string.to_i)
-    )
-  end
+  index_map = solution_to_permutation_index_map(test_number, numbers_sorted)
 
-  solution_numbers_to_sorted_permutation_index ==
-    solution_numbers_to_sorted_permutation_index.dup.sort
+  index_map == index_map.dup.sort
+end
+
+def print_next_bigger_number_details(test_number, permutations_unique)
+  puts "* Test number generator - next biggest number for #{test_number} *"
+  puts "Next bigger number: #{permutations_unique.first.join.to_i}"
+  puts "Unique permutations: #{permutations_unique.size}"
 end
 
 def print_test_number_generator_results(test_number)
-  p 'Does solution enumeration output bigger numbers in the same order as ' \
-    "sorted permutations for the number #{test_number}? #{
-      permutations_sequence_matches_solution_enumeration_sequence(test_number) ? 'Yes' : 'No'
-    }"
+  permutations_unique = bigger_number_permutations_unique(test_number)
+
+  print_next_bigger_number_details(test_number, permutations_unique)
+
+  order_matches =
+    solution_sequence_matches_permutation_sequence(
+      test_number, permutations_unique
+    )
+
+  p 'Does solution enumeration sequence match sorted permutations for the ' \
+  "number #{test_number}? #{order_matches ? 'Yes' : 'No'}"
 end
 
-print_test_number_generator_results(test_number)
+print_test_number_generator_results(123_456_789)
