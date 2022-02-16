@@ -52,24 +52,32 @@ end
 def sort_num_string_reverse_each!(digits_string, start_index)
   start_index.downto(1) do |index_right|
     index_left = index_right - 1
+    next unless digits_string[index_right] > digits_string[index_left]
+
     digits_string[index_right], digits_string[index_left] =
       digits_string[index_left], digits_string[index_right]
-
-    yield(digits_string)
+    break
   end
 end
 
-def next_bigger_num_string_each(integer, &block)
+def next_bigger_num_string_each(integer)
   digits_string = integer.to_s
   largest_number = max_num(integer)
-  start_index = digits_string.length - 1
 
   while digits_string.to_i < largest_number
-    sort_num_string_reverse_each!(digits_string, start_index, &block)
+    start_index = digits_string.length - 1
 
-    start_index -= 1
+    while start_index.positive? && digits_string.to_i < largest_number
+      sort_num_string_reverse_each!(digits_string, start_index)
+
+      yield(digits_string)
+
+      start_index -= 1
+    end
   end
 end
+
+next_bigger_num_string_each(879_999_999) { |num_string| puts num_string }
 
 def next_bigger_num(integer)
   largest_number = max_num(integer)
@@ -97,6 +105,7 @@ p next_bigger_num(123_456_789) == 123_456_798
 p next_bigger_num(123_666_888) == 123_668_688
 p next_bigger_num(123_654_999) == 123_659_499
 p next_bigger_num(123_999_999) == 129_399_999
+p next_bigger_num(879_999_999) == 897_999_999
 
 # For test number generation only -- this is not an efficient solution!
 def next_bigger_num_generator(integer)
