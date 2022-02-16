@@ -130,9 +130,11 @@ end
 
 test_number = 879_999_999
 
-p "Next bigger number for #{test_number}: #{next_bigger_num_generator(test_number).first.join.to_i}"
+p "Next bigger number for #{test_number}: #{
+  next_bigger_num_generator(test_number).first.join.to_i
+}"
 
-def compare_permutations_to_solution_enumeration(test_number)
+def permutations_sequence_matches_solution_enumeration_sequence(test_number)
   permutations_unique = next_bigger_num_generator(test_number)
   p permutations_unique.first.join.to_i
   p "Size: #{permutations_unique.size}"
@@ -148,12 +150,15 @@ def compare_permutations_to_solution_enumeration(test_number)
     )
   end
 
-  solution_numbers_to_sorted_permutation_index == solution_numbers_to_sorted_permutation_index.dup.sort
+  solution_numbers_to_sorted_permutation_index ==
+    solution_numbers_to_sorted_permutation_index.dup.sort
 end
 
 def print_test_number_generator_results(test_number)
-  p "Does solution enumeration output bigger numbers in the same order as sorted permutations for the number #{test_number}? #{
-    compare_permutations_to_solution_enumeration(test_number) ? 'Yes' : 'No' }"
+  p 'Does solution enumeration output bigger numbers in the same order as ' \
+    "sorted permutations for the number #{test_number}? #{
+      permutations_sequence_matches_solution_enumeration_sequence(test_number) ? 'Yes' : 'No'
+    }"
 end
 
 print_test_number_generator_results(test_number)
