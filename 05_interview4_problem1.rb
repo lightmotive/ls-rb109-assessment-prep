@@ -35,9 +35,20 @@ def substrings(string)
   result
 end
 
+def substrings_relevant(string)
+  substrings(string).map(&:downcase).reject do |substring|
+    substring.size < 2
+  end.uniq
+end
+
 def substring_test(string1, string2)
-  # Return true if any substrings match case-insensitively;
-  # otherwise, return false.
+  return false if string1.empty? || string2.empty? ||
+                  string1.length == 1 || string2.length == 1
+
+  substrings1 = substrings_relevant(string1)
+  substrings2 = substrings_relevant(string2)
+
+  !substrings1.intersection(substrings2).empty?
 end
 
 # Examples:
