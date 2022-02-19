@@ -19,6 +19,19 @@
 # Data structure
 # - Store substrings for each word in an array.
 
+# Algorithm
+# Overview: Generate all substrings for each string in an array, then return
+# true any substrings match. Otherwise, return false.
+
+# Given string1 and string2:
+def substrings(string)
+  # Return substrings array
+end
+
+def substring_test(string1, string2)
+  # Return true if any substrings match; otherwise, return false.
+end
+
 # Examples:
 
 p substring_test('Something', 'Fun') == false
