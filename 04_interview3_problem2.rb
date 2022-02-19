@@ -28,6 +28,7 @@ def common_prefix(words)
 end
 
 p common_prefix(%w[flower flow flight]) == 'fl'
+p common_prefix(%w[flower flow fliwht]) == 'fl'
 p common_prefix(%w[dog racecar car]) == ''
 p common_prefix(%w[interspecies interstellar interstate]) == 'inters'
 p common_prefix(%w[interspecies in interstellar interstate]) == 'in'
