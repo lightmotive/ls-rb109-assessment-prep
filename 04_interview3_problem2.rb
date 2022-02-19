@@ -30,5 +30,6 @@ end
 p common_prefix(%w[flower flow flight]) == 'fl'
 p common_prefix(%w[dog racecar car]) == ''
 p common_prefix(%w[interspecies interstellar interstate]) == 'inters'
+p common_prefix(%w[interspecies in interstellar interstate]) == 'in'
 p common_prefix(%w[throne dungeon]) == ''
 p common_prefix(%w[throne throne]) == 'throne'
