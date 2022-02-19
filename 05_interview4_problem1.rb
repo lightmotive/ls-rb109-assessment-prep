@@ -16,6 +16,9 @@
 # Mental model: considering all substrings of at least 2 characters in each
 # string, do any substrings match?
 
+# Data structure
+# - Store substrings for each word in an array.
+
 # Examples:
 
 p substring_test('Something', 'Fun') == false
