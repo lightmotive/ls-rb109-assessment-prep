@@ -13,10 +13,11 @@
 
 def common_prefix(words)
   result = String.new
-  first_word = words[0]
+  smallest_word = words.min_by(&:length)
+  other_words = words.reject { |word| word == smallest_word }
 
-  first_word.chars.each_with_index do |char, idx|
-    words[1..-1].each do |word|
+  smallest_word.chars.each_with_index do |char, idx|
+    other_words.each do |word|
       other_char = word[idx]
       return result if other_char != char
     end
