@@ -23,13 +23,21 @@
 # Overview: Generate all substrings for each string in an array, then return
 # true any substrings match. Otherwise, return false.
 
-# Given string1 and string2:
 def substrings(string)
-  # Return substrings array
+  result = []
+
+  (0...string.length).each do |start_idx|
+    (start_idx...string.length).each do |end_idx|
+      result << string[start_idx..end_idx]
+    end
+  end
+
+  result
 end
 
 def substring_test(string1, string2)
-  # Return true if any substrings match; otherwise, return false.
+  # Return true if any substrings match case-insensitively;
+  # otherwise, return false.
 end
 
 # Examples:
