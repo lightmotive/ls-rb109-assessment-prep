@@ -13,16 +13,10 @@
 
 def common_prefix(words)
   result = String.new
-  # - Loop through each character of the first word.
   first_word = words[0]
 
   first_word.chars.each_with_index do |char, idx|
-    #   - Check whether each of the remaining words have the same character at
-    #     the same index.
     words[1..-1].each do |word|
-      #     - If yes, add the character to the result and continue checking
-      #       characters.
-      #     - If no, return the result.
       other_char = word[idx]
       return result if other_char != char
     end
