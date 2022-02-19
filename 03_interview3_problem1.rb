@@ -26,6 +26,22 @@
 #   - Since this is an exercise, I will assume that we'll use the first
 #     sub-array.
 
+# Examples:
+
+# p max_sequence([]).zero?
+# p max_sequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6
+# p max_sequence([11]) == 11
+# p max_sequence([-32]).zero?
+# p max_sequence([-2, 1, -7, 4, -10, 2, 1, 5, 4]) == 12
+
+# Data structure
+# - Sequentially extract all possible sub-arrays into a temporary array.
+#   2-dimensional array of sub-arrays.
+
+def max_sequence(integer_array)
+  # ...
+end
+
 p max_sequence([]).zero?
 p max_sequence([-2, 1, -3, 4, -1, 2, 1, -5, 4]) == 6
 p max_sequence([11]) == 11
