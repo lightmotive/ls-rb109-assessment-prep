@@ -1,27 +1,11 @@
 # frozen_string_literal: true
 
 # Basic algorithm:
-# - Count chars in second string, then check whether the first string has at
-#   least that many chars.
-
-# Data structure: Hash map for chars and counts.
-
-def char_count_map(string)
-  map = Hash.new { |h, k| h[k] = 0 }
-
-  string.chars.uniq.each do |char|
-    map[char] += string.count(char)
-  end
-
-  map
-end
+# - For each char in the second string, check whether first string has at least
+#   as many of those chars as the second string.
 
 def scramble(string1, string2)
-  string2_char_count_map = char_count_map(string2)
-
-  string2.chars.uniq.all? do |char|
-    string1.count(char) >= string2_char_count_map[char]
-  end
+  string2.chars.uniq.all? { |char| string1.count(char) >= string2.count(char) }
 end
 
 p scramble('javaass', 'jjss') == false
