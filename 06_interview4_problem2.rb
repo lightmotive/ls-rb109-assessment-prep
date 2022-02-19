@@ -6,12 +6,18 @@
 
 # Data structure: Hash map for chars and counts.
 
-def scramble(string1, string2)
-  string2_char_count_map = Hash.new { |h, k| h[k] = 0 }
+def char_count_map(string)
+  map = Hash.new { |h, k| h[k] = 0 }
 
-  string2.chars.uniq.each do |char|
-    string2_char_count_map[char] += string2.count(char)
+  string.chars.uniq.each do |char|
+    map[char] += string.count(char)
   end
+
+  map
+end
+
+def scramble(string1, string2)
+  string2_char_count_map = char_count_map(string2)
 
   string2.chars.uniq.all? do |char|
     string1.count(char) >= string2_char_count_map[char]
