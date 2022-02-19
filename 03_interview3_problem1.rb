@@ -47,13 +47,15 @@ def max_sequence(integer_array)
   return 0 if integer_array.empty? || integer_array.all?(&:negative?)
   return integer_array.sum if integer_array.all?(&:positive?)
 
-  # - Extract all sub-arrays.
-  #   - Get a range of elements, starting with one element at position 0.
-  #     Gradually and independently increase the starting position and size.
-  #     - [0..0], [0..1], [0..2], ... (start = 0; end = 0; end += 1 - inner loop)
-  #     - [1..1], [1..2], ... (start += 1 - outer loop)
-  # - Calculate the sum of each and return the largest value.
-  #   - Return sub_arrays.max_by(&:sum).sum.
+  sub_arrays = []
+
+  (0...integer_array.size).each do |start_idx|
+    (start_idx...integer_array.size).each do |end_idx|
+      sub_arrays << integer_array[start_idx..end_idx]
+    end
+  end
+
+  sub_arrays.max_by(&:sum).sum
 end
 
 p max_sequence([]).zero?
