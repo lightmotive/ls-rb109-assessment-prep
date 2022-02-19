@@ -38,8 +38,22 @@
 # - Sequentially extract all possible sub-arrays into a temporary array.
 #   2-dimensional array of sub-arrays.
 
+# Algorithm
+# - Check easy rules.
+# - Extract all sub-arrays.
+# - Calculate the sum of each and return the largest value.
+
 def max_sequence(integer_array)
-  # ...
+  return 0 if integer_array.empty? || integer_array.all?(&:negative?)
+  return integer_array.sum if integer_array.all?(&:positive?)
+
+  # - Extract all sub-arrays.
+  #   - Get a range of elements, starting with one element at position 0.
+  #     Gradually and independently increase the starting position and size.
+  #     - [0..0], [0..1], [0..2], ... (start = 0; end = 0; end += 1 - inner loop)
+  #     - [1..1], [1..2], ... (start += 1 - outer loop)
+  # - Calculate the sum of each and return the largest value.
+  #   - Return sub_arrays.max_by(&:sum).sum.
 end
 
 p max_sequence([]).zero?
