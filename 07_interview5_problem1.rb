@@ -54,6 +54,11 @@ end
 
 def longest_palindrome(string)
   return 0 if string.empty?
+
+  substrings = substrings(string)
+  palindromes = select_palindromes(substrings)
+
+  palindromes.max_by(&:length).length
 end
 
 p longest_palindrome('a') == 1
