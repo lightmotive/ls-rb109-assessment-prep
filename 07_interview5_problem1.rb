@@ -35,15 +35,25 @@
 # Define 3 methods...
 
 def substrings(string)
-  # ...
+  result = []
+
+  (0...string.length).each do |start_idx|
+    (start_idx...string.length).each do |end_idx|
+      result << string[start_idx..end_idx]
+    end
+  end
+
+  result
 end
 
-def substrings_filter!(strings)
-  # ...
+def select_palindromes(strings)
+  strings.select do |string|
+    string.length == 1 || string == string.reverse
+  end
 end
 
 def longest_palindrome(string)
-  # ...
+  return 0 if string.empty?
 end
 
 p longest_palindrome('a') == 1
