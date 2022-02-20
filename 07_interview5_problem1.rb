@@ -23,6 +23,15 @@
 # Empty strings return 0.
 # Include single chars in palindromes (technically not palindromes).
 
+# * Data structure *
+# Store substrings in an array.
+
+# * Algorithm *
+# Overview:
+# - Extract substrings.
+# - Filter those substrings to include palindromes and single chars only.
+# - Get the longest of those filtered substrings.
+
 p longest_palindrome('a') == 1
 p longest_palindrome('aa') == 2
 p longest_palindrome('baa') == 2
