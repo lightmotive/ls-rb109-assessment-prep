@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
-# Find the length of the longest substring in the given string that is the same in reverse,
+# Find the length of the longest substring in the given string that is the same
+# in reverse.
 #
-# As an example, if the input was "I like racecars that go fast", the substring (racecar) length would be 7.
+# As an example, if the input was "I like racecars that go fast", the substring
+# (racecar) length would be 7.
 #
 # If the length of the input string is 0, return value must be 0.
 
@@ -12,6 +14,14 @@
 # "abcde" -> 1
 # "zzbaabcd" -> 4
 # "" -> 0
+
+# Input: String
+# Output: Integer
+# Mental model: given a string, which substring is the longest palindrome?
+
+# Rules:
+# Empty strings return 0.
+# Include single chars in palindromes (technically not palindromes).
 
 p longest_palindrome('a') == 1
 p longest_palindrome('aa') == 2
