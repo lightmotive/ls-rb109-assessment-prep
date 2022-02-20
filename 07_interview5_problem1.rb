@@ -32,6 +32,20 @@
 # - Filter those substrings to include palindromes and single chars only.
 # - Get the longest of those filtered substrings.
 
+# Define 3 methods...
+
+def substrings(string)
+  # ...
+end
+
+def substrings_filter!(strings)
+  # ...
+end
+
+def longest_palindrome(string)
+  # ...
+end
+
 p longest_palindrome('a') == 1
 p longest_palindrome('aa') == 2
 p longest_palindrome('baa') == 2
