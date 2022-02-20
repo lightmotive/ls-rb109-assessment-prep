@@ -46,10 +46,12 @@ def substrings(string)
   result
 end
 
+def palindrome?(string)
+  string == string.reverse
+end
+
 def select_palindromes(strings)
-  strings.select do |string|
-    string.length == 1 || string == string.reverse
-  end
+  strings.select { |string| string.length == 1 || palindrome?(string) }
 end
 
 def longest_palindrome(string)
