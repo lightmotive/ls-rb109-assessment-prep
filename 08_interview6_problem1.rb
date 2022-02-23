@@ -31,6 +31,21 @@
 # Mental model: At which index is the sum to the left equal to the sum to
 # the right? If none, return -1.
 
+# Data structure:
+# - No additional data structures required for this problem--just variables for
+#   storing sums. Iterate through the array without mutating it.
+
+# Algorithm:
+# Given an array of `numbers`:
+
+# - Initialize `left_sum` = 0 and `right_sum = numbers.sum`.
+# - Iterate through array with `number` and `idx`.
+#   - `right_sum -= number`.
+#   - Compare `left_sum` to `right_sum`
+#     - Return `idx` if equal.
+#   - `left_sum += current_value`
+# - Return -1 to indicate no sum was found.
+
 # Tests:
 p find_even_index([1, 2, 3, 4, 3, 2, 1]) == 3
 p find_even_index([1, 100, 50, -51, 1, 1]) == 1
