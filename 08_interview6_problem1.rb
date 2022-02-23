@@ -20,6 +20,18 @@
 # problem.)
 # Index 0 is the place where the left side and right side are equal.
 
+# Input: Array of integers
+# Output: Integer - index where sum of integers to left equal sum to right.
+
+# Rules:
+# - Find the index where right sum is equal to left sum.
+# - Empty array (index 0 to left, and last index to right) sum equals 0.
+# - Return -1 if no index meets those conditions.
+
+# Mental model: At which index is the sum to the left equal to the sum to
+# the right? If none, return -1.
+
+# Tests:
 p find_even_index([1, 2, 3, 4, 3, 2, 1]) == 3
 p find_even_index([1, 100, 50, -51, 1, 1]) == 1
 p find_even_index([1, 2, 3, 4, 5, 6]) == -1
