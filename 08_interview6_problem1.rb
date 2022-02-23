@@ -43,8 +43,22 @@
 #   - `right_sum -= number`.
 #   - Compare `left_sum` to `right_sum`
 #     - Return `idx` if equal.
-#   - `left_sum += current_value`
+#   - `left_sum += number`
 # - Return -1 to indicate no sum was found.
+
+def find_even_index(numbers)
+  left_sum = 0
+  right_sum = numbers.sum
+
+  numbers.each_with_index do |number, idx|
+    right_sum -= number
+    return idx if left_sum == right_sum
+
+    left_sum += number
+  end
+
+  -1
+end
 
 # Tests:
 p find_even_index([1, 2, 3, 4, 3, 2, 1]) == 3
